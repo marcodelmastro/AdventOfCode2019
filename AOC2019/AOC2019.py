@@ -308,3 +308,29 @@ class IntcodePhase():
         return self.isRunning
 
 
+class MoonSystem():
+    def __init__(self,x_):
+        self.x = np.array(x_)
+        self.v = self.x*0
+    
+    def updateSystem(self):
+        # compute velocities
+        deltav = []
+        for xi in self.x:
+            # empty matrix
+            dv = self.v*0 
+            # apply gravity to matrix (line for current moon will be empty by definition)
+            dv += (xi-self.x < 0) # add if smaller
+            dv -= (xi-self.x > 0) # subtract if bigger
+            dv_ = np.sum(dv,axis=0) # sum all velocity variations for current moon    
+            deltav.append(dv_.tolist()) # repackage as matrix adding row for current moon        
+        # update velocities
+        self.v += np.array(deltav)
+        # update positions
+        self.x += self.v
+        
+    def tot(self):
+        return (np.absolute(self.x).sum(axis=1)*np.absolute(self.v).sum(axis=1)).sum()
+    
+    def getHash(self):
+        return hash(np.append(self.x,self.v).tostring())
