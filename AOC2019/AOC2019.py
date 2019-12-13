@@ -58,7 +58,7 @@ class Intcode():
         self.isRunning = True
         outputDig = 0
         if (self.ip and self.isRunning and self.debug):
-            print("Resuming",self.name,"operation at instruction",self.ip,"with input",theInput)
+            print("Resuming",self.name,"operation at instruction",self.ip,"with input",inputDig)
         while ( self.ip < len(self.digits) and self.isRunning ):
             self.step +=1
             op_ = self.digits[self.ip]
@@ -67,7 +67,6 @@ class Intcode():
                     print(self.name,"halted - Final output =",self.output)
                 self.isRunning = False
                 self.isHalted = True
-                self.isRunning
                 break
             p = repackInstr(op_)
             op = p[0]
