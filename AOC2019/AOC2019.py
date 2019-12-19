@@ -30,11 +30,12 @@ class Intcode():
 
     def __init__(self, prog, name, debug=False):
         # Increase memory size to account for Day 9 programs
-        memsize = 1000000
+        self.memsize = 1000000
         prog_ = np.array(prog)
-        self.digits = np.zeros((memsize,), dtype=int)
+        self.digits = np.zeros((self.memsize,), dtype=int)
         self.digits[:len(prog_)] = prog_
         #
+        self.origprog = list(prog) # save copy of initial program in case reset is needed
         self.debug = debug
         self.name = name
         self.relbase = 0 # need for OpInt 9
@@ -45,6 +46,20 @@ class Intcode():
         self.isHalted = False
         self.step = 0
 
+    def reset(self):
+        # reset program to initial value
+        prog_ = np.array(self.origprog)
+        self.digits = np.zeros((self.memsize,), dtype=int)
+        self.digits[:len(prog_)] = prog_
+        # reset various internal variables
+        self.relbase = 0 # need for OpInt 9
+        self.ip = 0
+        self.lastOutput = -1
+        self.output = []
+        self.isRunning = True
+        self.isHalted = False
+        self.step = 0
+        
     def getLastOutput(self):
         return self.lastOutput
         
