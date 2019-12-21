@@ -24,13 +24,12 @@ def readIntcodeProg(infile):
         lines = [l.rstrip('\n') for l in f]
         return list([int(c) for c in lines[0].split(',')])
 
-
 class Intcode():
     """Intcode computer"""
 
     def __init__(self, prog, name, debug=False):
         # Increase memory size to account for Day 9 programs
-        self.memsize = 1000000
+        self.memsize = 100000
         prog_ = np.array(prog)
         self.digits = np.zeros((self.memsize,), dtype=int)
         self.digits[:len(prog_)] = prog_
@@ -52,7 +51,7 @@ class Intcode():
         self.digits = np.zeros((self.memsize,), dtype=int)
         self.digits[:len(prog_)] = prog_
         # reset various internal variables
-        self.relbase = 0 # need for OpInt 9
+        self.relbase = 0
         self.ip = 0
         self.lastOutput = -1
         self.output = []
