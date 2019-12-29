@@ -25,7 +25,7 @@ def printASCII(o):
         if (i!=10):
             print(chr(i),end="")
         else:
-            print("\n")
+            print("")
 
 class Droid(cmd.Cmd):
     prompt = '(DROID) '
