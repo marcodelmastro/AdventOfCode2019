@@ -82,7 +82,7 @@ class IntcodeV3():
         self.isRunning = True
         outputDig = 0
         if (self.ip and self.isRunning and self.debug):
-            print("Resuming",self.name,"operation at instruction",self.ip,"with input",inputDig)
+            print("Resuming",self.name,"operation at instruction",self.ip)
         while ( self.ip < len(self.digits) and self.isRunning ):
             self.step +=1
             op_ = self.digits[self.ip]
